@@ -3,8 +3,8 @@ package paint.Model;
 public class Ellipse implements Shape{
 	String color;
 	String fillColor;
-	double X;
-	double Y;
+	double x;
+	double y;
 	double a;
 	double b;
 	static final String type = "Ellipse";
@@ -22,16 +22,16 @@ public class Ellipse implements Shape{
 		this.fillColor = fillColor;
 	}
 	public double getX() {
-		return X;
+		return x;
 	}
 	public void setX(double X) {
-		this.X = X;
+		this.x = X;
 	}
 	public double getY() {
-		return Y;
+		return y;
 	}
 	public void setY(double Y) {
-		this.Y = Y;
+		this.y = Y;
 	}
 	public double getA() {
 		return a;
@@ -52,8 +52,8 @@ public class Ellipse implements Shape{
 	public Ellipse (String color, String fillColor, double x, double y, double a, double b) {
 		this.color=color;
 		this.fillColor=fillColor;
-		this.X=x;
-		this.Y=y;
+		this.x=x;
+		this.y=y;
 		this.a=a;
 		this.b=b;
 

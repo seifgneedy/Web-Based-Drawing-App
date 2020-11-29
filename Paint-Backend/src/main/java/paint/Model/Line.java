@@ -4,10 +4,10 @@ public class Line implements Shape {
 	static final String type = "Line";
 	String color;
 	String fillColor;
-	double startX;
-	double startY;
-	double endX;
-	double endY;
+	double x;
+	double y;
+	double x2;
+	double y2;
 
 	@Override
 	public String getColor() {
@@ -31,50 +31,50 @@ public class Line implements Shape {
 
 	@Override
 	public double getX() {
-		return startX;
+		return x;
 	}
 
 	@Override
 	public void setX(double x) {
-		this.startX=x;
+		this.x=x;
 	}
 
 	@Override
 	public double getY() {
-		return startY;
+		return y;
 	}
 
 	@Override
 	public void setY(double y) {
-		this.startY=y;
+		this.y=y;
 	}
 
-	public double getEndX() {
-		return endX;
+	public double getX2() {
+		return x2;
 	}
 
-	public void setEndX(double endX) {
-		this.endX = endX;
+	public void setX2(double x2) {
+		this.x2 = x2;
 	}
 
-	public double getEndY() {
-		return endY;
+	public double getY2() {
+		return y2;
 	}
 
-	public void setEndY(double endY) {
-		this.endY = endY;
+	public void setEndY(double y2) {
+		this.y2 = y2;
 	}
 	
 	public String getType() {
 		return type;
 	}
 	
-	public Line (String color, double startX, double startY, double endX, double endY) {
+	public Line (String color, double x, double y, double x2, double y2) {
 		this.color=color;
-		this.startX=startX;
-		this.startY=startY;
-		this.endX=endX;
-		this.endY=endY;
+		this.x=x;
+		this.y=y;
+		this.x2=x2;
+		this.y2=y2;
 	}
 	
 }

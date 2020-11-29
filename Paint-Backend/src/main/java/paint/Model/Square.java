@@ -4,8 +4,8 @@ public class Square implements Shape {
 	static final String type = "Square";
 	String color;
 	String fillColor;
-	double X1;
-	double Y1;
+	double x;
+	double y;
 	double width;
 	public String getColor() {
 		return color;
@@ -20,16 +20,16 @@ public class Square implements Shape {
 		this.fillColor = fillColor;
 	}
 	public double getX() {
-		return X1;
+		return x;
 	}
-	public void setX(double x1) {
-		this.X1 = x1;
+	public void setX(double x) {
+		this.x = x;
 	}
 	public double getY() {
-		return Y1;
+		return y;
 	}
-	public void setY(double y1) {
-		this.Y1 = y1;
+	public void setY(double y) {
+		this.y = y;
 	}
 	public double getWidth() {
 		return width;
@@ -41,11 +41,11 @@ public class Square implements Shape {
 		return type;
 	}
 	
-	public Square (String color, String fillColor, double x1, double y1,double width) {
+	public Square (String color, String fillColor, double x, double y,double width) {
 		this.color=color;
 		this.fillColor=fillColor;
-		this.X1=x1;
-		this.Y1=y1;
+		this.x=x;
+		this.y=y;
 		this.width=width;
 	}
 	
