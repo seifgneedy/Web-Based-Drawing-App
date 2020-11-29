@@ -4,8 +4,8 @@ public class Circle implements Shape{
 	static final String type = "Circle";
 	String color;
 	String fillColor;
-	double X;
-	double Y;
+	double x;
+	double y;
 	double radius;
 
 	@Override
@@ -30,22 +30,22 @@ public class Circle implements Shape{
 
 	@Override
 	public double getX() {
-		return X;
+		return x;
 	}
 
 	@Override
 	public void setX(double x) {
-		this.X=x;
+		this.x=x;
 	}
 
 	@Override
 	public double getY() {
-		return Y;
+		return y;
 	}
 
 	@Override
 	public void setY(double y) {
-		this.Y=y;
+		this.y=y;
 	}
 
 	public double getRadius() {
@@ -62,8 +62,8 @@ public class Circle implements Shape{
 	public Circle (String color, String fillColor, double x, double y, double radius) {
 		this.color=color;
 		this.fillColor=fillColor;
-		this.X=x;
-		this.Y=y;
+		this.x=x;
+		this.y=y;
 		this.radius=radius;
 	}
 }
