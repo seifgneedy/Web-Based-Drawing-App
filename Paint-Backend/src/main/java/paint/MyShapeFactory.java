@@ -57,6 +57,7 @@ public class MyShapeFactory implements ShapeFactory {
 				double x3 = obj.getDouble("x3");
 				double y3 = obj.getDouble("y3");
 				return new Triangle(color, fillColor, x, y, x2, y2, x3, y3);
+				default:
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
