@@ -1,15 +1,7 @@
-package paint;
+package paint.Model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import paint.Model.Circle;
-import paint.Model.Ellipse;
-import paint.Model.Line;
-import paint.Model.Rectangle;
-import paint.Model.Shape;
-import paint.Model.Square;
-import paint.Model.Triangle;
 public class MyShapeFactory implements ShapeFactory {
 	
 	public Shape makeShape(String json) {
