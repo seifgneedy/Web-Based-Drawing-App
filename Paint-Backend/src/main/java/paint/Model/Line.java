@@ -69,8 +69,9 @@ public class Line implements Shape {
 		return type;
 	}
 	
-	public Line (String color, double x, double y, double x2, double y2) {
+	public Line (String color,String fillColor, double x, double y, double x2, double y2) {
 		this.color=color;
+		this.fillColor=fillColor;
 		this.x=x;
 		this.y=y;
 		this.x2=x2;
