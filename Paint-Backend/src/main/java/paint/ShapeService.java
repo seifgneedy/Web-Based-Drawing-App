@@ -14,6 +14,9 @@ public class ShapeService {
 		return shapes;
 	}
 	
+	public void setShapes(LinkedList<Shape> list) {
+		shapes = list;
+	}
 	public LinkedList<Shape> addShape (Shape s) {
 		shapes.add(s);
 		return shapes;
