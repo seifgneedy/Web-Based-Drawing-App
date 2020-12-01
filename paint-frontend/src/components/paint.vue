@@ -246,8 +246,7 @@ export default {
     // Stores all points in the polygon
    
  
-    // Each point in the polygon is found by breaking the 
-    // parts of the polygon into triangles
+    
     // Then I can use the known angle and adjacent side length
     // to find the X = mouseLoc.x + radiusX * Sin(angle)
     // You find the Y = mouseLoc.y + radiusY * Cos(angle)
@@ -255,14 +254,14 @@ export default {
       
  
         // 2 * PI equals 360 degrees
-        // Divide 360 into parts based on how many polygon 
+        // Divide 360 into parts based on how many triangle 
         // sides you want 
         for(let i = 0; i < this.TriangleSides; i++){
         this.TrianglePoints.push({x : (this.loc.x + radiusX * Math.sin(angle)),y :
         (this.loc.y - radiusY * Math.cos(angle))});
  
         // 2 * PI equals 360 degrees
-        // Divide 360 into parts based on how many polygon 
+        // Divide 360 into parts based on how many triangle 
         // sides you want 
         angle += 2 * Math.PI / this.TriangleSides;
     }
