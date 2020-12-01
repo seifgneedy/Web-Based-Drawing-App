@@ -1,5 +1,6 @@
 package paint;
 
+import java.beans.*;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -11,15 +12,16 @@ import paint.Model.Shape;
 @Service
 public class FileService {
 	
-	public void JSONSave(File file, LinkedList<Shape> list) throws IOException {
+	public boolean saveJSON(File file, LinkedList<Shape> list) throws IOException {
 		JSONArray jsonArr = new JSONArray(list);
 		FileWriter writer = new FileWriter(file);
         writer.write(jsonArr.toString());
         writer.flush();
         writer.close();
+        return true;
 	}
 	
-	public LinkedList<Shape> JSONLoad(File file) throws IOException{
+	public LinkedList<Shape> loadJSON(File file) throws IOException{
 		LinkedList<Shape> list = new LinkedList<Shape>();
 		String contents = new String((Files.readAllBytes(Paths.get(file.getAbsolutePath()))));
 		JSONArray jsonArr = new JSONArray(contents);
@@ -32,12 +34,24 @@ public class FileService {
 		return list;
 	}
 	
-	public void XMLSave(File file, LinkedList<Shape> list) {
-		
+	public boolean saveXML(File file, LinkedList<Shape> list) throws IOException {
+		FileOutputStream fileStream = new FileOutputStream(file);
+		XMLEncoder encoder = new XMLEncoder(fileStream);
+		encoder.writeObject(list);
+		encoder.close();
+		fileStream.close();
+		return true;
 	}
 	
-	public LinkedList<Shape> XMLLoad(File file){
-		
+	@SuppressWarnings("unchecked")
+	public LinkedList<Shape> loadXML(File file) throws IOException{
+		LinkedList<Shape> list;
+		FileInputStream fileStream = new FileInputStream(file);
+		XMLDecoder decoder = new XMLDecoder(fileStream);
+		list = (LinkedList<Shape>) decoder.readObject();
+		decoder.close();
+		fileStream.close();
+		return list;
 	}
 	
 }

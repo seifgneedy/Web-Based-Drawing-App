@@ -10,6 +10,20 @@ public class Triangle implements Shape {
 	double y2;
 	double x3;
 	double y3;
+	
+	public Triangle() { }
+	
+	public Triangle (String color, String fillColor, double x1, double y1,double x2, double y2, double x3, double y3) {
+		this.color=color;
+		this.fillColor=fillColor;
+		this.x=x1;
+		this.y=y1;
+		this.x2=x2;
+		this.y2=y2;
+		this.x3=x3;
+		this.y3=y3;
+	}
+	
 	public String getColor() {
 		return color;
 	}
@@ -62,16 +76,5 @@ public class Triangle implements Shape {
 		return type;
 	}
 	
-	public Triangle (String color, String fillColor, double x1, double y1,double x2, double y2, double x3, double y3) {
-		this.color=color;
-		this.fillColor=fillColor;
-		this.x=x1;
-		this.y=y1;
-		this.x2=x2;
-		this.y2=y2;
-		this.x3=x3;
-		this.y3=y3;
-
-	}
 
 }

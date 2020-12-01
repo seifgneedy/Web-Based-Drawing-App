@@ -7,7 +7,17 @@ public class Circle implements Shape{
 	double x;
 	double y;
 	double radius;
-
+	
+	public Circle () { }
+	
+	public Circle (String color, String fillColor, double x, double y, double radius) {
+		this.color=color;
+		this.fillColor=fillColor;
+		this.x=x;
+		this.y=y;
+		this.radius=radius;
+	}
+	
 	@Override
 	public String getColor() {
 		return color;
@@ -57,13 +67,5 @@ public class Circle implements Shape{
 	}
 	public String getType() {
 		return type;
-	}
-	
-	public Circle (String color, String fillColor, double x, double y, double radius) {
-		this.color=color;
-		this.fillColor=fillColor;
-		this.x=x;
-		this.y=y;
-		this.radius=radius;
 	}
 }
