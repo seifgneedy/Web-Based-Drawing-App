@@ -1,15 +1,7 @@
-package paint;
+package paint.Model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import paint.Model.Circle;
-import paint.Model.Ellipse;
-import paint.Model.Line;
-import paint.Model.Rectangle;
-import paint.Model.Shape;
-import paint.Model.Square;
-import paint.Model.Triangle;
 public class MyShapeFactory implements ShapeFactory {
 	
 	public Shape makeShape(String json) {
@@ -18,14 +10,19 @@ public class MyShapeFactory implements ShapeFactory {
 			obj = new JSONObject(json);
 			String type = obj.getString("type");
 			String color = obj.getString("color");
-			String fillColor = obj.getString("fillColor");
+			String fillColor;
+			if(type.equals("Line")) {
+			fillColor = color;
+			}
+			else
+				fillColor = obj.getString("fillColor");
 
 			switch (type) {
 			case "Circle":
 				double x = obj.getDouble("x");
 				double y = obj.getDouble("y");
-				double raduis = obj.getDouble("raduis");
-				return new Circle(color, fillColor, x, y, raduis);
+				double radius = obj.getDouble("radius");
+				return new Circle(color, fillColor, x, y, radius);
 			case "Ellipse":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
@@ -37,7 +34,7 @@ public class MyShapeFactory implements ShapeFactory {
 				y = obj.getDouble("y");
 				double x2 = obj.getDouble("x2");
 				double y2 = obj.getDouble("y2");
-				return new Line(color, x, y, x2, y2);
+				return new Line(color,fillColor, x, y, x2, y2);
 			case "Rectangle":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
