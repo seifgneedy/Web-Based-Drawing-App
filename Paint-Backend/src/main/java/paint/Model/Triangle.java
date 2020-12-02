@@ -3,7 +3,7 @@ package paint.Model;
 public class Triangle implements Shape {
 	static final String type = "Triangle";
 	String color;
-	String fillColor;
+	boolean filled;
 	double x;
 	double y;
 	double x2;
@@ -13,9 +13,9 @@ public class Triangle implements Shape {
 	
 	public Triangle() { }
 	
-	public Triangle (String color, String fillColor, double x1, double y1,double x2, double y2, double x3, double y3) {
+	public Triangle (String color, boolean filled, double x1, double y1,double x2, double y2, double x3, double y3) {
 		this.color=color;
-		this.fillColor=fillColor;
+		this.filled=filled;
 		this.x=x1;
 		this.y=y1;
 		this.x2=x2;
@@ -30,11 +30,11 @@ public class Triangle implements Shape {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getFillColor() {
-		return fillColor;
+	public boolean getFilled() {
+		return filled;
 	}
-	public void setFillColor(String fillColor) {
-		this.fillColor = fillColor;
+	public void setFilled(boolean filled) {
+		this.filled = filled;
 	}
 	public double getX() {
 		return x;

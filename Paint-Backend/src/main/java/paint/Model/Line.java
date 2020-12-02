@@ -3,7 +3,7 @@ package paint.Model;
 public class Line implements Shape {
 	static final String type = "Line";
 	String color;
-	String fillColor;
+	boolean filled;
 	double x;
 	double y;
 	double x2;
@@ -11,9 +11,9 @@ public class Line implements Shape {
 	
 	public Line(){ }
 	
-	public Line(String color,String fillColor, double x, double y, double x2, double y2) {
+	public Line(String color,boolean filled, double x, double y, double x2, double y2) {
 		this.color=color;
-		this.fillColor=fillColor;
+		this.filled=filled;
 		this.x=x;
 		this.y=y;
 		this.x2=x2;
@@ -31,13 +31,13 @@ public class Line implements Shape {
 	}
 
 	@Override
-	public String getFillColor() {
-		return fillColor;
+	public boolean getFilled() {
+		return filled;
 	}
 
 	@Override
-	public void setFillColor(String color) {
-		this.fillColor=color;
+	public void setFilled(boolean filled) {
+		this.filled=filled;
 	}
 
 	@Override
