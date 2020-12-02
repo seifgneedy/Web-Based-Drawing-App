@@ -12,7 +12,7 @@
                 <a href="#" id="rectangle"  @click="ChangeTool('rectangle')"><img src="./rectangle.png"></a>
                 <a href="#" id="circle" @click="ChangeTool('circle')"><img src="./circle.png"></a>
                 <a href="#" id="ellipse" @click="ChangeTool('ellipse')"><img src="./ellipse.png"></a>
-                <a href="#" id="Triangle" @click="ChangeTool('Triangle')"><img src="./triangle.png"></a>
+                <a href="#" id="Triangle" @click="ChangeTool('Triangle')"><img src="./Triangle.png"></a>
                 <a href="#" id="square" @click="ChangeTool('square')"><img src="./square.png"></a>
             </div><br>
           
