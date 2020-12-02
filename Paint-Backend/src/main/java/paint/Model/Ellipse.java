@@ -9,6 +9,17 @@ public class Ellipse implements Shape{
 	double b;
 	static final String type = "Ellipse";
 	
+	public Ellipse(){ }
+	
+	public Ellipse (String color, String fillColor, double x, double y, double a, double b) {
+		this.color=color;
+		this.fillColor=fillColor;
+		this.x=x;
+		this.y=y;
+		this.a=a;
+		this.b=b;
+	}
+	
 	public String getColor() {
 		return color;
 	}
@@ -47,15 +58,5 @@ public class Ellipse implements Shape{
 	}
 	public String getType() {
 		return type;
-	}
-	
-	public Ellipse (String color, String fillColor, double x, double y, double a, double b) {
-		this.color=color;
-		this.fillColor=fillColor;
-		this.x=x;
-		this.y=y;
-		this.a=a;
-		this.b=b;
-
 	}
 }

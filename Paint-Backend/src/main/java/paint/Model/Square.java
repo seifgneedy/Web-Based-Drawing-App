@@ -7,6 +7,17 @@ public class Square implements Shape {
 	double x;
 	double y;
 	double width;
+	
+	public Square() { }
+	
+	public Square (String color, String fillColor, double x, double y,double width) {
+		this.color=color;
+		this.fillColor=fillColor;
+		this.x=x;
+		this.y=y;
+		this.width=width;
+	}
+	
 	public String getColor() {
 		return color;
 	}
@@ -39,14 +50,6 @@ public class Square implements Shape {
 	}
 	public String getType() {
 		return type;
-	}
-	
-	public Square (String color, String fillColor, double x, double y,double width) {
-		this.color=color;
-		this.fillColor=fillColor;
-		this.x=x;
-		this.y=y;
-		this.width=width;
 	}
 	
 

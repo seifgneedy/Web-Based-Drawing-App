@@ -9,6 +9,17 @@ public class Rectangle implements Shape {
 	double width;
 	double lenght;
 	
+	public Rectangle() { }
+	
+	public Rectangle (String color, String fillColor, double x, double y,double width, double lenght) {
+		this.color=color;
+		this.fillColor=fillColor;
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.lenght=lenght;
+	}
+	
 	public String getColor() {
 		return color;
 	}
@@ -48,14 +59,5 @@ public class Rectangle implements Shape {
 	public String getType() {
 		return type;
 	}
-	public Rectangle (String color, String fillColor, double x, double y,double width, double lenght) {
-		this.color=color;
-		this.fillColor=fillColor;
-		this.x=x;
-		this.y=y;
-		this.width=width;
-		this.lenght=lenght;
-	}
-
-
+	
 }
