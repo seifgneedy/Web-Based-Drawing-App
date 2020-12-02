@@ -16,21 +16,23 @@ import paint.Model.MyShapeFactory;
 import paint.Model.Shape;
 
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081" })
+@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8020" })
 @RestController
 public class ShapeResource {
 	@Autowired
 	private ShapeService service;
 	
 	@GetMapping("/shapes")
-	public LinkedList<Shape> getShapes(){
-		return service.getShapes();
+	public String getShapes(){
+		//return service.getShapes();
+		return "abdo";
 	}
 	
 	@PostMapping("/add")
 	public void addShape(@RequestBody String shapeData) {
 		MyShapeFactory fac = new MyShapeFactory();
 		Shape s = fac.makeShape(shapeData);
+		 
 		service.addShape(s);
 
 	}

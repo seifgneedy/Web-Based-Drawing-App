@@ -11,8 +11,23 @@
                 <a href="#" id="rectangle"  @click="ChangeTool('rectangle')"><img src="./rectangle.png"></a>
                 <a href="#" id="circle" @click="ChangeTool('circle')"><img src="./circle.png"></a>
                 <a href="#" id="ellipse" @click="ChangeTool('ellipse')"><img src="./ellipse.png"></a>
-                <a href="#" id="Triangle" @click="ChangeTool('Triangle')"><img src="./Triangle.png"></a>
+                <a href="#" id="Triangle" @click="ChangeTool('Triangle')"><img src="./triangle.png"></a>
+                <a href="#" id="square" @click="ChangeTool('square')"><img src="./square.png"></a>
             </div><br>
+          
+           <div class="toolbar" >
+                <a  id="stroke" @click="changedrawtype('stroke')">stroke</a> 
+                  <a  id="fill" @click="changedrawtype('fill')">fill</a>
+                  <div class="col_3"><input type="button"  style="background-color:yellow;" @click="color('yellow')"></div>
+                  <div class="col_3"><input type="button"  style="background-color:red;"  @click="color('red')"></div>
+                  <div class="col_3"><input type="button"  style="background-color:green;" @click="color('green')"></div>
+                  <div class="col_3"><input type="button"  style="background-color:blue;" @click="color('blue')"></div>
+                  <div class="col_3"><input type="button"  style="background-color:black;" @click="color('black')"></div>
+       
+			
+			<br><br>
+            </div><br>
+           
 <canvas id="my-canvas" width="900" height="500"></canvas>
             <div id="img-data-div">
                 <a href="#" id="img-file" download="image.png">download image</a>
@@ -36,13 +51,27 @@
  
 .toolbar{
     width: 100%;
-    background-color: #444444;
+    background-color: #181414e0;
     overflow: auto;
-}
- 
+} .clearfix{
+      content: '';
+      display: table;
+      clear: both;
+      margin: 0;
+      
+    }
+    .col_3{
+    margin: 0;
+      padding: 4px;
+      float: left;
+    }
+    .button.top{
+     background-color: blue;
+
+    }  
 .toolbar a {
     float: left;
-    width: 11%;
+    width: 10%;
     text-align: center;
     padding: 6px 5px;
     transition: all 0.5s ease;
@@ -97,8 +126,9 @@ export default {
          fillColor : 'black',
          line_Width : 2,
          TriangleSides : 3,
+         drawtype:null,
 // Tool currently using
-         currentTool : 'ellipse',
+         currentTool : 'brush',
          canvasWidth : 900,
          canvasHeight :500,
          canvasSizeData :"",
@@ -149,14 +179,8 @@ export default {
         this.shapeBoundingBox.width = width;
         this.shapeBoundingBox.height = height;
        },
-     MouseDownPos : function (x,y) {
-            this.mousedown.x = x,
-            this.mousedown.y = y;
-       },
-        Location: function(x,y) {
-        this.loc.x = x,
-        this.loc.y = y;
-       },
+     
+       
      
     ChangeTool : function(toolClicked){
      document.getElementById("open").className = "";
@@ -167,6 +191,8 @@ export default {
      document.getElementById("circle").className = "";
      document.getElementById("ellipse").className = "";
      document.getElementById("Triangle").className = "";
+     document.getElementById("square").className = "";
+    
      //Highlight the last selected tool on toolbar
     document.getElementById(toolClicked).className = "selected";
     // Change current tool used for drawing
@@ -292,13 +318,21 @@ export default {
         this.ctx.stroke();
     } else if(this.currentTool === "rectangle"){
         // Creates rectangles
-        this.ctx.strokeRect(this.shapeBoundingBox.left, this.shapeBoundingBox.top, this.shapeBoundingBox.width, this.shapeBoundingBox.height);
-    } else if(this.currentTool === "circle"){
+        if(this.drawtype=="fill"){
+        this.ctx.fillRect(this.shapeBoundingBox.left, this.shapeBoundingBox.top, this.shapeBoundingBox.width, this.shapeBoundingBox.height);
+        }else{this.ctx.strokeRect(this.shapeBoundingBox.left, this.shapeBoundingBox.top, this.shapeBoundingBox.width, this.shapeBoundingBox.height);}
+        
+    } else if(this.currentTool === "square"){
+        // Creates rectangles
+        if(this.drawtype=="fill"){
+        this.ctx.fillRect(this.shapeBoundingBox.left, this.shapeBoundingBox.top, this.shapeBoundingBox.width, this.shapeBoundingBox.width);
+        }else{this.ctx.strokeRect(this.shapeBoundingBox.left, this.shapeBoundingBox.top, this.shapeBoundingBox.width, this.shapeBoundingBox.width);}
+     } else if(this.currentTool === "circle"){
         // Create circles
         let radius = this.shapeBoundingBox.width;
         this.ctx.beginPath();
         this.ctx.arc(this.mousedown.x, this.mousedown.y, radius, 0, Math.PI * 2);
-        this.ctx.stroke();
+        this.strockeORfill();
     } else if(this.currentTool === "ellipse"){
         // Create ellipses
         // ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle)
@@ -306,10 +340,10 @@ export default {
         let radiusY = this.shapeBoundingBox.height / 2;
         this.ctx.beginPath();
         this.ctx.ellipse(this.mousedown.x, this.mousedown.y, radiusX, radiusY, Math.PI / 4, 0, Math.PI * 2);
-        this.ctx.stroke();
+        this.strockeORfill();
     } else if(this.currentTool === "Triangle"){
                this.getTriangle();
-               this.ctx.stroke();
+               this.strockeORfill();
     }
        },
        UpdateRubberbandOnMove : function(  ){
@@ -397,7 +431,24 @@ export default {
     imageFile.setAttribute('download', 'image.png');
     // Reference the image in canvas for download
     imageFile.setAttribute('href', this.canvas.toDataURL());
-       }
+       },
+       strockeORfill(){
+        if (this.drawtype=="fill"){
+         this.ctx.fill();
+        }else {
+            this.ctx.stroke();
+        }
+       },
+       changedrawtype(type){
+            document.getElementById("stroke").className = "";
+            document.getElementById("fill").className = "";
+            document.getElementById(type).className = "selected";
+            this.drawtype=type;
+       },
+       color : function(color){
+           this.strokeColor=color;
+           this.fillColor=color;
+       },
         
     }
     
