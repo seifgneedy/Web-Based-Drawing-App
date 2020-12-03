@@ -3,7 +3,8 @@ package paint.Model;
 public class Rectangle implements Shape {
 	static final String type = "Rectangle";
 	String color;
-	String fillColor;
+	boolean filled;
+	double lineWidth;
 	double x;
 	double y;
 	double width;
@@ -11,9 +12,10 @@ public class Rectangle implements Shape {
 	
 	public Rectangle() { }
 	
-	public Rectangle (String color, String fillColor, double x, double y,double width, double lenght) {
+	public Rectangle (String color, boolean filled,double lineWidth, double x, double y,double width, double lenght) {
 		this.color=color;
-		this.fillColor=fillColor;
+		this.filled=filled;
+		this.lineWidth=lineWidth;
 		this.x=x;
 		this.y=y;
 		this.width=width;
@@ -26,11 +28,11 @@ public class Rectangle implements Shape {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getFillColor() {
-		return fillColor;
+	public boolean getFilled() {
+		return filled;
 	}
-	public void setFillColor(String fillColor) {
-		this.fillColor = fillColor;
+	public void setFilled(boolean filled) {
+		this.filled = filled;
 	}
 	public double getX() {
 		return x;
@@ -44,6 +46,15 @@ public class Rectangle implements Shape {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public double getLineWidth() {
+		return lineWidth;
+	}
+
+	public void setLineWidth(double lineWidth) {
+		this.lineWidth = lineWidth;
+	}
+
 	public double getWidth() {
 		return width;
 	}

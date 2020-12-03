@@ -10,42 +10,43 @@ public class MyShapeFactory implements ShapeFactory {
 			obj = new JSONObject(json);
 			String type = obj.getString("type");
 			String color = obj.getString("color");
-			String fillColor;
+			double lineWidth = obj.getDouble("lineWidth");
+			boolean filled;
 			if(type.equals("Line")) {
-			fillColor = color;
+			filled = false;
 			}
 			else
-				fillColor = obj.getString("fillColor");
+				filled = obj.getBoolean("filled");
 
 			switch (type) {
 			case "Circle":
 				double x = obj.getDouble("x");
 				double y = obj.getDouble("y");
 				double radius = obj.getDouble("radius");
-				return new Circle(color, fillColor, x, y, radius);
+				return new Circle(color, filled,lineWidth,x, y, radius);
 			case "Ellipse":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
 				double a = obj.getDouble("a");
 				double b = obj.getDouble("b");
-				return new Ellipse(color, fillColor, x, y, a, b);
+				return new Ellipse(color, filled, lineWidth,x, y, a, b);
 			case "Line":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
 				double x2 = obj.getDouble("x2");
 				double y2 = obj.getDouble("y2");
-				return new Line(color,fillColor, x, y, x2, y2);
+				return new Line(color,filled, lineWidth,x, y, x2, y2);
 			case "Rectangle":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
 				double width = obj.getDouble("width");
 				double lenght = obj.getDouble("length");
-				return new Rectangle(color, fillColor, x, y, width, lenght);
+				return new Rectangle(color, filled, lineWidth,x, y, width, lenght);
 			case "Square":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
 				width = obj.getDouble("width");
-				return new Square(color, fillColor, x, y, width);
+				return new Square(color, filled, lineWidth,x, y, width);
 			case "Triangle":
 				x = obj.getDouble("x");
 				y = obj.getDouble("y");
@@ -53,7 +54,7 @@ public class MyShapeFactory implements ShapeFactory {
 				y2 = obj.getDouble("y2");
 				double x3 = obj.getDouble("x3");
 				double y3 = obj.getDouble("y3");
-				return new Triangle(color, fillColor, x, y, x2, y2, x3, y3);
+				return new Triangle(color, filled, lineWidth,x, y, x2, y2, x3, y3);
 				default:
 			}
 		} catch (JSONException e) {
