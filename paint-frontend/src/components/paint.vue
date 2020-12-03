@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <div class="toolbar">
-      <div>
+      <div v-show="this.isUploadShowing">
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
         <button v-on:click="submitFile()">Submit</button>
       </div>
-      <a href="#" id="open" 
+      <a href="#" id="open" @click="showUpload"
         ><img src="../assets/open.png"
       /></a>
       <a href="#" id="Line" @click="ChangeTool('Line')"
@@ -137,6 +137,7 @@ export default {
       colorInput: null,
       lineWidthInput: null,
       file: '',
+      isUploadShowing: false,
       // Stores previously drawn image data to restore after
       // new drawings are added
       savedImageData: null,
@@ -499,25 +500,29 @@ export default {
       });
     },
     submitFile(){
-        let formData = new FormData();
-        formData.append('file', this.file);
-        AXIOS.post('/upload',
-            formData,
-            {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-            }
-        ).then(function(){
-          console.log('SUCCESS!!');
-        })
-        .catch(function(){
-          console.log('FAILURE!!');
-        });
-      },
-      handleFileUpload(){
-        this.file = this.$refs.file.files[0];
-      }
+      let formData = new FormData();
+      formData.append('file', this.file);
+      AXIOS.post('/upload',
+          formData,
+          {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+          }
+      ).then(function(){
+        console.log('SUCCESS!!');
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+      this.isUploadShowing = false;
+    },
+    handleFileUpload(){
+      this.file = this.$refs.file.files[0];
+    },
+    showUpload(){
+      this.isUploadShowing = true;
+    }
   }
 };
 </script>
