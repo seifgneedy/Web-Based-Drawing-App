@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="java.util.LinkedList">
+  <void method="add">
+   <object class="paint.Model.Rectangle">
+    <void property="color">
+     <string>black</string>
+    </void>
+    <void property="lenght">
+     <double>160.0790513833992</double>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>322.8476821192053</double>
+    </void>
+    <void property="x">
+     <double>78.47682119205298</double>
+    </void>
+    <void property="y">
+     <double>47.63154644268774</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Rectangle">
+    <void property="color">
+     <string>black</string>
+    </void>
+    <void property="lenght">
+     <double>107.70750988142291</double>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>307.94701986754967</double>
+    </void>
+    <void property="x">
+     <double>268.2119205298013</double>
+    </void>
+    <void property="y">
+     <double>129.6473567193676</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>black</string>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>70.5298013245033</double>
+    </void>
+    <void property="x">
+     <double>138.0794701986755</double>
+    </void>
+    <void property="y">
+     <double>88.14538043478261</double>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,7 @@ import paint.Model.*;
 public class ShapeResource {
 	@Autowired
 	private ShapeService service;
+	@Autowired
 	private FileService fileService;
 	public static ShapeFactory fac = new MyShapeFactory();
 	
@@ -32,7 +35,9 @@ public class ShapeResource {
 	
 	@PostMapping("/add")
 	public void addShape(@RequestBody String shapeData) {
+		System.out.println(shapeData);
 		Shape s = fac.makeShape(shapeData);
+		System.out.println(s==null);
 		service.addShape(s);
 	}
 	
@@ -59,6 +64,7 @@ public class ShapeResource {
 		    }
 	    }catch(IOException e) {
 	    	e.printStackTrace();
+	    	return false;
 	    }
 	    return true;
 	}
@@ -66,13 +72,42 @@ public class ShapeResource {
 	private Path saved = Paths.get("saved");
 	public Resource load(String filename) {
 		try {
-		  Path file = saved.resolve(filename);
-		  Resource resource = new UrlResource(file.toUri());
+		  Path path = saved.resolve(filename);
+		  Resource resource = new UrlResource(path.toUri());
 		  return resource;
 		 }catch (RuntimeException | MalformedURLException e) {
 		  e.printStackTrace();
 		}
 		return null;
 	}
+		@GetMapping("/downloadXML")
+		@ResponseBody
+		public ResponseEntity<Resource> getXMLFile() {
+			try {
+				fileService.saveXML(new File("saved/saved.xml"), service.getShapes());
+				Resource file = load("saved.xml");
+				return ResponseEntity.ok()
+						.header(HttpHeaders.CONTENT_DISPOSITION, 
+							"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+	  }
+		@GetMapping("/downloadJSON")
+		@ResponseBody
+		public ResponseEntity<Resource> getJSONFile() {
+			try {
+				fileService.saveJSON(new File("saved/saved.json"), service.getShapes());
+				Resource file = load("saved.json");
+				return ResponseEntity.ok()
+						.header(HttpHeaders.CONTENT_DISPOSITION, 
+							"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+	  }
 }
 

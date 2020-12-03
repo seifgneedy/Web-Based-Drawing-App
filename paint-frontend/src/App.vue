@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    
-    <paint  />
+    <paint />
   </div>
 </template>
 
 <script>
 import paint from "./components/paint.vue";
-
 export default {
   name: "App",
   components: {
@@ -15,9 +13,6 @@ export default {
   }
 };
 </script>
-
-
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,29 +1,30 @@
 <template>
   <div class="wrapper">
     <div class="toolbar">
-      <a href="#" id="open" @click="OpenImage()"
+      <upload />
+      <a href="#" id="open" 
         ><img src="../assets/open.png"
       /></a>
-      <a href="#" id="line" @click="ChangeTool('line')"
+      <a href="#" id="Line" @click="ChangeTool('Line')"
         ><img src="../assets/line.png"
       /></a>
-      <a href="#" id="rectangle" @click="ChangeTool('rectangle')"
+      <a href="#" id="Rectangle" @click="ChangeTool('Rectangle')"
         ><img src="../assets/rectangle.png"
       /></a>
-      <a href="#" id="square" @click="ChangeTool('square')"
+      <a href="#" id="Square" @click="ChangeTool('Square')"
         ><img src="../assets/square.png"
       /></a>
-      <a href="#" id="circle" @click="ChangeTool('circle')"
+      <a href="#" id="Circle" @click="ChangeTool('Circle')"
         ><img src="../assets/circle.png"
       /></a>
-      <a href="#" id="ellipse" @click="ChangeTool('ellipse')"
+      <a href="#" id="Ellipse" @click="ChangeTool('Ellipse')"
         ><img src="../assets/ellipse.png"
       /></a>
       <a href="#" id="Triangle" @click="ChangeTool('Triangle')"
         ><img src="../assets/Triangle.png"
       /></a>
-      <button>Save As JSON</button>
-      <button>Save As XML</button>
+      <button @click="downloadJSON">Save As JSON</button>
+      <button @click="downloadXML">Save As XML</button>
     </div>
     <br />
 
@@ -123,7 +124,10 @@ button {
 
 <script>
 import axios from "axios";
+import upload from "./upload.vue";
+import { AXIOS } from "../http-common";
 export default {
+  components: { upload },
   data() {
     return {
       canvas: null,
@@ -150,16 +154,16 @@ export default {
         left: 0,
         top: 0,
         width: 0,
-        height: 0,
+        height: 0
       },
       mousedown: {
         x: 0,
-        y: 0,
+        y: 0
       },
       loc: {
         x: 0,
-        y: 0,
-      },
+        y: 0
+      }
     };
   },
   mounted() {
@@ -191,12 +195,12 @@ export default {
   methods: {
     ChangeTool: function(toolClicked) {
       document.getElementById("open").className = "";
-      document.getElementById("line").className = "";
-      document.getElementById("rectangle").className = "";
-      document.getElementById("circle").className = "";
-      document.getElementById("ellipse").className = "";
+      document.getElementById("Line").className = "";
+      document.getElementById("Rectangle").className = "";
+      document.getElementById("Circle").className = "";
+      document.getElementById("Ellipse").className = "";
       document.getElementById("Triangle").className = "";
-      document.getElementById("square").className = "";
+      document.getElementById("Square").className = "";
 
       document.getElementById(toolClicked).className = "selected";
 
@@ -210,7 +214,7 @@ export default {
           (this.canvas.width / this.canvasSizeData.width),
         y:
           (y - this.canvasSizeData.top) *
-          (this.canvas.height / this.canvasSizeData.height),
+          (this.canvas.height / this.canvasSizeData.height)
       };
     },
     SaveCanvasImage: function() {
@@ -292,7 +296,7 @@ export default {
       for (let i = 0; i < this.TriangleSides; i++) {
         this.TrianglePoints.push({
           x: this.loc.x + radiusX * Math.sin(angle),
-          y: this.loc.y - radiusY * Math.cos(angle),
+          y: this.loc.y - radiusY * Math.cos(angle)
         });
 
         // 2 * PI equals 360 degrees
@@ -309,21 +313,21 @@ export default {
       this.shape["filled"] = this.drawtype === "fill" ? true : false;
       this.shape["x"] = this.mousedown.x;
       this.shape["y"] = this.mousedown.y;
-      if (this.currentTool === "line") {
+      if (this.currentTool === "Line") {
         this.shape["x2"] = this.loc.x;
         this.shape["y2"] = this.loc.y;
       } else if (
-        this.currentTool === "square" ||
-        this.currentTool === "rectangle"
+        this.currentTool === "Square" ||
+        this.currentTool === "Rectangle"
       ) {
         this.shape["x"] = this.shapeBoundingBox.left;
         this.shape["y"] = this.shapeBoundingBox.top;
         this.shape["width"] = this.shapeBoundingBox.width;
-        if (this.currentTool === "rectangle")
+        if (this.currentTool === "Rectangle")
           this.shape["length"] = this.shapeBoundingBox.height;
-      } else if (this.currentTool === "circle") {
+      } else if (this.currentTool === "Circle") {
         this.shape["radius"] = this.shapeBoundingBox.width;
-      } else if (this.currentTool === "ellipse") {
+      } else if (this.currentTool === "Ellipse") {
         this.shape["a"] = this.shapeBoundingBox.width;
         this.shape["b"] = this.shapeBoundingBox.height;
       } else {
@@ -407,19 +411,19 @@ export default {
       this.ctx.strokeStyle = s["color"];
       this.ctx.lineWidth = s["lineWidth"];
       switch (s["type"]) {
-        case "line":
+        case "Line":
           this.drawLine(s);
           break;
-        case "rectangle":
+        case "Rectangle":
           this.drawRectangle(s);
           break;
-        case "square":
+        case "Square":
           this.drawSquare(s);
           break;
-        case "circle":
+        case "Circle":
           this.drawCircle(s);
           break;
-        case "ellipse":
+        case "Ellipse":
           this.drawEllipse(s);
           break;
         case "Triangle":
@@ -469,17 +473,29 @@ export default {
       s["filled"] ? this.ctx.fill() : this.ctx.stroke();
     },
     sendNewShape: function() {
-      axios.post("http://localhost:8081" + "/add", this.shape);
+      axios.post("http://localhost:8080" + "/add", this.shape);
     },
     drawShapesFromServer: function() {
-      let shapes = axios.get("http://localhost:8081" + "/shapes");
+      let shapes = axios.get("http://localhost:8080" + "/shapes");
       this.ctx.save();
       for (let s in shapes) {
         this.drawShape(s);
       }
       this.ctx.restore();
     },
-  },
+    downloadXML() {
+      const FileDownload = require("js-file-download");
+      AXIOS.get("/downloadXML").then(response => {
+        FileDownload(response.data, "saved.xml");
+      });
+    },
+    downloadJSON() {
+      const FileDownload = require("js-file-download");
+      AXIOS.get("/downloadJSON").then(response => {
+        FileDownload(response.data, "saved.json");
+      });
+    }
+  }
 };
 </script>
 //Not much but honest work
