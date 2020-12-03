@@ -55,10 +55,11 @@ public class ShapeResource {
 	}
 	
 	@PostMapping("/upload")
-	public boolean uploadFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public LinkedList<Shape> uploadFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
 	    Path path = Paths.get(PaintBackendApplication.uploadFolder + file.getOriginalFilename());
 	    file.transferTo(path);
 	    try {
+	    	//setShapes also clears the redo
 	    	if(file.getOriginalFilename().contains(".json")) {
 		    	service.setShapes(fileService.loadJSON(path.toFile()));
 		    }else {
@@ -66,9 +67,8 @@ public class ShapeResource {
 		    }
 	    }catch(IOException e) {
 	    	e.printStackTrace();
-	    	return false;
 	    }
-	    return true;
+	    return service.getShapes();
 	}
 	
 	private Path saved = Paths.get("saved");

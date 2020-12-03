@@ -524,12 +524,11 @@ export default {
               'Content-Type': 'multipart/form-data'
           }
           }
-      ).then(function(){
-        console.log('SUCCESS!!');
+      ).then(response => {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawShapes(response.data);
       })
-      .catch(function(){
-        console.log('FAILURE!!');
-      });
+      .catch();
       this.isUploadShowing = false;
     },
     handleFileUpload(){
