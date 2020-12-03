@@ -58,9 +58,9 @@ public class ShapeResource {
 	    file.transferTo(path);
 	    try {
 	    	if(file.getOriginalFilename().contains(".json")) {
-		    	fileService.loadJSON(path.toFile());
+		    	service.setShapes(fileService.loadJSON(path.toFile()));
 		    }else {
-		    	fileService.loadXML(path.toFile());
+		    	service.setShapes(fileService.loadXML(path.toFile()));
 		    }
 	    }catch(IOException e) {
 	    	e.printStackTrace();
