@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="toolbar">
-      <upload />
+      <div>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        <button v-on:click="submitFile()">Submit</button>
+      </div>
       <a href="#" id="open" 
         ><img src="../assets/open.png"
       /></a>
@@ -124,16 +127,16 @@ button {
 
 <script>
 import axios from "axios";
-import upload from "./upload.vue";
 import { AXIOS } from "../http-common";
 export default {
-  components: { upload },
+  components: {},
   data() {
     return {
       canvas: null,
       ctx: null,
       colorInput: null,
       lineWidthInput: null,
+      file: '',
       // Stores previously drawn image data to restore after
       // new drawings are added
       savedImageData: null,
@@ -494,7 +497,27 @@ export default {
       AXIOS.get("/downloadJSON").then(response => {
         FileDownload(JSON.stringify(response.data), "saved.json");
       });
-    }
+    },
+    submitFile(){
+        let formData = new FormData();
+        formData.append('file', this.file);
+        AXIOS.post('/upload',
+            formData,
+            {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+            }
+        ).then(function(){
+          console.log('SUCCESS!!');
+        })
+        .catch(function(){
+          console.log('FAILURE!!');
+        });
+      },
+      handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+      }
   }
 };
 </script>
