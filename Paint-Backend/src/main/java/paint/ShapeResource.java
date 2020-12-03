@@ -109,5 +109,17 @@ public class ShapeResource {
 			}
 			
 	  }
+		
+		@GetMapping("/undo")
+		public LinkedList<Shape> undo(){
+			return service.undo();
+		}
+		
+		@GetMapping("/redo")
+		public LinkedList<Shape> redo(){
+			return service.redo();
+		}
+		
+		
 }
 
