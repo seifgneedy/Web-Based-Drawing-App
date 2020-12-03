@@ -492,7 +492,7 @@ export default {
     downloadJSON() {
       const FileDownload = require("js-file-download");
       AXIOS.get("/downloadJSON").then(response => {
-        FileDownload(response.data, "saved.json");
+        FileDownload(JSON.stringify(response.data), "saved.json");
       });
     }
   }
