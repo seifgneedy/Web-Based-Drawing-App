@@ -1,17 +1,18 @@
 
 package paint;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import paint.Model.*;
 
@@ -21,7 +22,7 @@ import paint.Model.*;
 public class ShapeResource {
 	@Autowired
 	private ShapeService service;
-	
+	private FileService fileService;
 	public static ShapeFactory fac = new MyShapeFactory();
 	
 	@GetMapping("/shapes")
@@ -45,6 +46,33 @@ public class ShapeResource {
 	public void removeShape (@PathVariable int index) {
 		service.removeShape(index);
 	}
-
+	
+	@PostMapping("/upload")
+	public boolean uploadFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	    Path path = Paths.get(PaintBackendApplication.uploadFolder + file.getOriginalFilename());
+	    file.transferTo(path);
+	    try {
+	    	if(file.getOriginalFilename().contains(".json")) {
+		    	fileService.loadJSON(path.toFile());
+		    }else {
+		    	fileService.loadXML(path.toFile());
+		    }
+	    }catch(IOException e) {
+	    	e.printStackTrace();
+	    }
+	    return true;
+	}
+	
+	private Path saved = Paths.get("saved");
+	public Resource load(String filename) {
+		try {
+		  Path file = saved.resolve(filename);
+		  Resource resource = new UrlResource(file.toUri());
+		  return resource;
+		 }catch (RuntimeException | MalformedURLException e) {
+		  e.printStackTrace();
+		}
+		return null;
+	}
 }
 
