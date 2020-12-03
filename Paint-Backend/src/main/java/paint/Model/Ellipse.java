@@ -3,6 +3,7 @@ package paint.Model;
 public class Ellipse implements Shape{
 	String color;
 	boolean filled;
+	double lineWidth;
 	double x;
 	double y;
 	double a;
@@ -11,9 +12,10 @@ public class Ellipse implements Shape{
 	
 	public Ellipse(){ }
 	
-	public Ellipse (String color, boolean filled, double x, double y, double a, double b) {
+	public Ellipse (String color, boolean filled,double lineWidth, double x, double y, double a, double b) {
 		this.color=color;
 		this.filled=filled;
+		this.lineWidth=lineWidth;
 		this.x=x;
 		this.y=y;
 		this.a=a;
@@ -56,6 +58,15 @@ public class Ellipse implements Shape{
 	public void setB(double b) {
 		this.b = b;
 	}
+	
+	public double getLineWidth() {
+		return lineWidth;
+	}
+
+	public void setLineWidth(double lineWidth) {
+		this.lineWidth = lineWidth;
+	}
+
 	public String getType() {
 		return type;
 	}

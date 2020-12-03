@@ -9,5 +9,7 @@ public interface Shape {
 	void setX(double x);
 	double getY();
 	void setY(double y);
+	double getLineWidth();
+	void setLineWidth(double lineWidth);
 	String getType();
 }

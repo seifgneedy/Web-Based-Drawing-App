@@ -4,15 +4,17 @@ public class Square implements Shape {
 	static final String type = "Square";
 	String color;
 	boolean filled;
+	double lineWidth;
 	double x;
 	double y;
 	double width;
 	
 	public Square() { }
 	
-	public Square (String color, boolean filled, double x, double y,double width) {
+	public Square (String color, boolean filled,double lineWidth , double x, double y,double width) {
 		this.color=color;
 		this.filled=filled;
+		this.lineWidth=lineWidth;
 		this.x=x;
 		this.y=y;
 		this.width=width;
@@ -42,6 +44,15 @@ public class Square implements Shape {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public double getLineWidth() {
+		return lineWidth;
+	}
+
+	public void setLineWidth(double lineWidth) {
+		this.lineWidth = lineWidth;
+	}
+
 	public double getWidth() {
 		return width;
 	}

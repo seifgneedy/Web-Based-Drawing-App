@@ -4,6 +4,7 @@ public class Triangle implements Shape {
 	static final String type = "Triangle";
 	String color;
 	boolean filled;
+	double lineWidth;
 	double x;
 	double y;
 	double x2;
@@ -13,9 +14,10 @@ public class Triangle implements Shape {
 	
 	public Triangle() { }
 	
-	public Triangle (String color, boolean filled, double x1, double y1,double x2, double y2, double x3, double y3) {
+	public Triangle (String color, boolean filled,double lineWidth, double x1, double y1,double x2, double y2, double x3, double y3) {
 		this.color=color;
 		this.filled=filled;
+		this.lineWidth=lineWidth;
 		this.x=x1;
 		this.y=y1;
 		this.x2=x2;
@@ -48,6 +50,15 @@ public class Triangle implements Shape {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public double getLineWidth() {
+		return lineWidth;
+	}
+
+	public void setLineWidth(double lineWidth) {
+		this.lineWidth = lineWidth;
+	}
+
 	public double getX2() {
 		return x2;
 	}
