@@ -3,16 +3,16 @@ package paint.Model;
 public class Circle implements Shape{
 	static final String type = "Circle";
 	String color;
-	String fillColor;
+	boolean filled;
 	double x;
 	double y;
 	double radius;
 	
 	public Circle () { }
 	
-	public Circle (String color, String fillColor, double x, double y, double radius) {
+	public Circle (String color, boolean filled, double x, double y, double radius) {
 		this.color=color;
-		this.fillColor=fillColor;
+		this.filled=filled;
 		this.x=x;
 		this.y=y;
 		this.radius=radius;
@@ -29,13 +29,13 @@ public class Circle implements Shape{
 	}
 
 	@Override
-	public String getFillColor() {
-		return fillColor;
+	public boolean getFilled() {
+		return filled;
 	}
 
 	@Override
-	public void setFillColor(String color) {
-		this.fillColor=color;
+	public void setFilled(boolean filled) {
+		this.filled=filled;
 	}
 
 	@Override
