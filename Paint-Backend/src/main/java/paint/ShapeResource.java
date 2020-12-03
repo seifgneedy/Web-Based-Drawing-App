@@ -32,10 +32,12 @@ public class ShapeResource {
 	public LinkedList<Shape> getShapes(){
 		return service.getShapes();
 	}
-	
+	@GetMapping("/reset")
+	public void reset(){
+		service.clearShapes();
+	}
 	@PostMapping("/add")
 	public void addShape(@RequestBody String shapeData) {
-		System.out.println(shapeData);
 		Shape s = fac.makeShape(shapeData);
 		System.out.println(s==null);
 		service.addShape(s);

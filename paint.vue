@@ -1,33 +1,28 @@
 <template>
   <div class="wrapper">
     <div class="toolbar">
-      <div v-show="this.isUploadShowing">
-        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-        <button v-on:click="submitFile()">Submit</button>
-      </div>
-      <a href="#" id="open" @click="showUpload"
-        ><img src="../assets/open.png"
+      <a class="selected" href="#" id="open" @click="OpenImage()"
+        ><img src="./open.png"
       /></a>
-      <a href="#" id="Line" @click="ChangeTool('Line')"
-        ><img src="../assets/line.png"
+      <a href="#" id="save" @click="SaveImage()"><img src="./save.png"/></a>
+      <a href="#" id="line" @click="ChangeTool('line')"
+        ><img src="./line.png"
       /></a>
-      <a href="#" id="Rectangle" @click="ChangeTool('Rectangle')"
-        ><img src="../assets/rectangle.png"
+      <a href="#" id="rectangle" @click="ChangeTool('rectangle')"
+        ><img src="./rectangle.png"
       /></a>
-      <a href="#" id="Square" @click="ChangeTool('Square')"
-        ><img src="../assets/square.png"
+      <a href="#" id="square" @click="ChangeTool('square')"
+        ><img src="./square.png"
       /></a>
-      <a href="#" id="Circle" @click="ChangeTool('Circle')"
-        ><img src="../assets/circle.png"
+      <a href="#" id="circle" @click="ChangeTool('circle')"
+        ><img src="./circle.png"
       /></a>
-      <a href="#" id="Ellipse" @click="ChangeTool('Ellipse')"
-        ><img src="../assets/ellipse.png"
+      <a href="#" id="ellipse" @click="ChangeTool('ellipse')"
+        ><img src="./ellipse.png"
       /></a>
       <a href="#" id="Triangle" @click="ChangeTool('Triangle')"
-        ><img src="../assets/Triangle.png"
+        ><img src="./Triangle.png"
       /></a>
-      <button @click="downloadJSON">Save As JSON</button>
-      <button @click="downloadXML">Save As XML</button>
     </div>
     <br />
 
@@ -56,11 +51,6 @@
 </template>
 
 <style>
-button {
-  color: white;
-  margin: 10px;
-  background-color: #181414e0;
-}
 #color {
   background-color: #181414e0;
 }
@@ -126,26 +116,27 @@ button {
 </style>
 
 <script>
-import { AXIOS } from "../http-common";
+import axios from "axios";
 export default {
-  components: {},
   data() {
     return {
       canvas: null,
+      // Context provides functions used for drawing and
+      // working with Canvas
       ctx: null,
       colorInput: null,
       lineWidthInput: null,
-      file: '',
-      isUploadShowing: false,
       // Stores previously drawn image data to restore after
       // new drawings are added
       savedImageData: null,
+      // Stores whether I'm currently dragging the mouse
       dragging: false,
       strokeColor: "black",
       fillColor: "black",
       line_Width: 4,
       TriangleSides: 3,
       drawtype: "stroke",
+      // Tool currently using
       currentTool: "line",
       canvasWidth: 900,
       canvasHeight: 500,
@@ -153,39 +144,40 @@ export default {
       TrianglePoints: new Array(),
       savedTrianglePoints: new Array(),
       shape: {},
-      shapes:[],
       shapeBoundingBox: {
         left: 0,
         top: 0,
         width: 0,
-        height: 0
+        height: 0,
       },
       mousedown: {
         x: 0,
-        y: 0
+        y: 0,
       },
       loc: {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      },
     };
   },
   mounted() {
     this.canvas = document.getElementById("my-canvas");
+    // Get methods for manipulating the canvas
     this.ctx = this.canvas.getContext("2d");
-    this.reset();
     this.ctx.strokeStyle = this.strokeColor;
     this.ctx.lineWidth = this.line_Width;
-
+    // Execute ReactToMouseDown when the mouse is clicked
     this.canvas.addEventListener("mousedown", this.ReactToMouseDown);
+    // Execute ReactToMouseMove when the mouse is clicked
     this.canvas.addEventListener("mousemove", this.ReactToMouseMove);
+    // Execute ReactToMouseUp when the mouse is clicked
     this.canvas.addEventListener("mouseup", this.ReactToMouseUp);
+    //document.addEventListener('DOMContentLoaded', this.setupCanvas);
 
     this.colorInput = document.getElementById("color");
 
     this.colorInput.addEventListener("input", this.ReactToColor);
 
-    document.getElementById("line").className = "selected";
     document.getElementById("stroke").className = "selected";
 
     this.lineWidthInput = document.getElementById("selectLineWidth");
@@ -200,18 +192,21 @@ export default {
   methods: {
     ChangeTool: function(toolClicked) {
       document.getElementById("open").className = "";
-      document.getElementById("Line").className = "";
-      document.getElementById("Rectangle").className = "";
-      document.getElementById("Circle").className = "";
-      document.getElementById("Ellipse").className = "";
+      document.getElementById("save").className = "";
+      document.getElementById("line").className = "";
+      document.getElementById("rectangle").className = "";
+      document.getElementById("circle").className = "";
+      document.getElementById("ellipse").className = "";
       document.getElementById("Triangle").className = "";
-      document.getElementById("Square").className = "";
+      document.getElementById("square").className = "";
 
+      //Highlight the last selected tool on toolbar
       document.getElementById(toolClicked).className = "selected";
-
+      // Change current tool used for drawing
       this.currentTool = toolClicked;
     },
     GetMousePosition: function(x, y) {
+      // Get canvas size and position in web page
       this.canvasSizeData = this.canvas.getBoundingClientRect();
       return {
         x:
@@ -219,7 +214,7 @@ export default {
           (this.canvas.width / this.canvasSizeData.width),
         y:
           (y - this.canvasSizeData.top) *
-          (this.canvas.height / this.canvasSizeData.height)
+          (this.canvas.height / this.canvasSizeData.height),
       };
     },
     SaveCanvasImage: function() {
@@ -301,7 +296,7 @@ export default {
       for (let i = 0; i < this.TriangleSides; i++) {
         this.TrianglePoints.push({
           x: this.loc.x + radiusX * Math.sin(angle),
-          y: this.loc.y - radiusY * Math.cos(angle)
+          y: this.loc.y - radiusY * Math.cos(angle),
         });
 
         // 2 * PI equals 360 degrees
@@ -310,42 +305,91 @@ export default {
         angle += (2 * Math.PI) / this.TriangleSides;
       }
     },
-    drawRubberbandShape: function() {
-      this.shape["type"] = this.currentTool;
-      this.shape["color"] = this.strokeColor;
-      this.shape["color"] = this.fillColor;
-      this.shape["lineWidth"] = this.line_Width;
-      this.shape["filled"] = this.drawtype === "fill" ? true : false;
-      this.shape["x"] = this.mousedown.x;
-      this.shape["y"] = this.mousedown.y;
-      if (this.currentTool === "Line") {
-        this.shape["x2"] = this.loc.x;
-        this.shape["y2"] = this.loc.y;
-      } else if (
-        this.currentTool === "Square" ||
-        this.currentTool === "Rectangle"
-      ) {
-        this.shape["x"] = this.shapeBoundingBox.left;
-        this.shape["y"] = this.shapeBoundingBox.top;
-        this.shape["width"] = this.shapeBoundingBox.width;
-        if (this.currentTool === "Rectangle")
-          this.shape["length"] = this.shapeBoundingBox.height;
-      } else if (this.currentTool === "Circle") {
-        this.shape["radius"] = this.shapeBoundingBox.width;
-      } else if (this.currentTool === "Ellipse") {
-        this.shape["a"] = this.shapeBoundingBox.width;
-        this.shape["b"] = this.shapeBoundingBox.height;
-      } else {
-        this.getTrianglePoints();
-        this.shape["x"] = this.TrianglePoints[0].x;
-        this.shape["y"] = this.TrianglePoints[0].y;
-        this.shape["x2"] = this.TrianglePoints[1].x;
-        this.shape["y2"] = this.TrianglePoints[1].y;
-        this.shape["x3"] = this.TrianglePoints[2].x;
-        this.shape["y3"] = this.TrianglePoints[2].y;
-        this.TrianglePoints = new Array();
+    getTriangle() {
+      this.getTrianglePoints();
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.TrianglePoints[0].x, this.TrianglePoints[0].y);
+      for (let i = 1; i < this.TriangleSides; i++) {
+        this.ctx.lineTo(this.TrianglePoints[i].x, this.TrianglePoints[i].y);
       }
-      this.drawShape(this.shape);
+      this.ctx.closePath();
+      this.savedTrianglePoints = this.TrianglePoints;
+      this.TrianglePoints = new Array();
+    },
+    drawRubberbandShape: function() {
+      this.ctx.strokeStyle = this.strokeColor;
+      this.ctx.fillStyle = this.fillColor;
+      this.ctx.lineWidth = this.line_Width;
+      //   console.log(this.shapeBoundingBox.width);
+      //   console.log(this.shapeBoundingBox.height);
+      //   console.log(this.shapeBoundingBox.top);
+      //   console.log(this.shapeBoundingBox.left);
+      if (this.currentTool === "line") {
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.mousedown.x, this.mousedown.y);
+        this.ctx.lineTo(this.loc.x, this.loc.y);
+        this.ctx.stroke();
+      } else if (this.currentTool === "rectangle") {
+        if (this.drawtype == "fill") {
+          this.ctx.fillRect(
+            this.shapeBoundingBox.left,
+            this.shapeBoundingBox.top,
+            this.shapeBoundingBox.width,
+            this.shapeBoundingBox.height
+          );
+        } else {
+          this.ctx.strokeRect(
+            this.shapeBoundingBox.left,
+            this.shapeBoundingBox.top,
+            this.shapeBoundingBox.width,
+            this.shapeBoundingBox.height
+          );
+        }
+      } else if (this.currentTool === "square") {
+        if (this.drawtype == "fill") {
+          this.ctx.fillRect(
+            this.shapeBoundingBox.left,
+            this.shapeBoundingBox.top,
+            this.shapeBoundingBox.width,
+            this.shapeBoundingBox.width
+          );
+        } else {
+          this.ctx.strokeRect(
+            this.shapeBoundingBox.left,
+            this.shapeBoundingBox.top,
+            this.shapeBoundingBox.width,
+            this.shapeBoundingBox.width
+          );
+        }
+      } else if (this.currentTool === "circle") {
+        let radius = this.shapeBoundingBox.width;
+        this.ctx.beginPath();
+        this.ctx.arc(
+          this.mousedown.x,
+          this.mousedown.y,
+          radius,
+          0,
+          Math.PI * 2
+        );
+        this.strockeORfill();
+      } else if (this.currentTool === "ellipse") {
+        let radiusX = this.shapeBoundingBox.width;
+        let radiusY = this.shapeBoundingBox.height;
+        this.ctx.beginPath();
+        this.ctx.ellipse(
+          this.mousedown.x,
+          this.mousedown.y,
+          radiusX,
+          radiusY,
+          0,
+          0,
+          Math.PI * 2
+        );
+        this.strockeORfill();
+      } else if (this.currentTool === "Triangle") {
+        this.getTriangle();
+        this.strockeORfill();
+      }
     },
     UpdateRubberbandOnMove: function() {
       // Stores changing height, width, x & y position of most
@@ -356,13 +400,17 @@ export default {
       this.drawRubberbandShape();
     },
     ReactToMouseDown(e) {
+      // Change the mouse pointer to a crosshair
       this.canvas.style.cursor = "crosshair";
+      // Store location
       this.loc = this.GetMousePosition(e.clientX, e.clientY);
+      console.log(this.loc.x + "  " + this.loc.y);
+      // Save the current canvas image
       this.SaveCanvasImage();
-
+      // Store mouse position when clicked
       this.mousedown.x = this.loc.x;
       this.mousedown.y = this.loc.y;
-
+      // Store that yes the mouse is being held down
       this.dragging = true;
     },
     ReactToMouseMove(e) {
@@ -370,7 +418,6 @@ export default {
       this.loc = this.GetMousePosition(e.clientX, e.clientY);
 
       if (this.dragging) {
-        this.shape = {};
         this.RedrawCanvasImage();
         this.UpdateRubberbandOnMove();
       }
@@ -378,13 +425,47 @@ export default {
     ReactToMouseUp(e) {
       this.canvas.style.cursor = "default";
       this.loc = this.GetMousePosition(e.clientX, e.clientY);
+      console.log(this.loc.x + "  " + this.loc.y);
       if (this.mousedown.x != this.loc.x || this.mousedown.y != this.loc.y) {
-        //this.RedrawCanvasImage();
+        this.RedrawCanvasImage();
         this.UpdateRubberbandOnMove();
-        this.sendNewShape();
-        this.drawShapesFromServer();
+        this.saveAndSendToServer();
       }
       this.dragging = false;
+    },
+    saveAndSendToServer: function() {
+      this.shape["type"] = this.currentTool;
+      this.shape["color"] = this.strokeColor;
+      this.shape["filled"] = this.drawtype === "fill" ? true : false;
+      this.shape["x"] = this.mousedown.x;
+      this.shape["y"] = this.mousedown.y;
+      if (this.currentTool === "line") {
+        this.shape["x2"] = this.loc.x;
+        this.shape["y2"] = this.loc.y;
+      } else if (
+        this.currentTool === "rectangle" ||
+        this.currentTool === "square"
+      ) {
+        this.shape["x"] = this.shapeBoundingBox.left;
+        this.shape["y"] = this.shapeBoundingBox.top;
+        this.shape["width"] = this.shapeBoundingBox.width;
+        if (this.currentTool === "rectangle")
+          this.shape["length"] = this.shapeBoundingBox.length;
+      } else if (this.currentTool === "circle") {
+        this.shape["radius"] = this.shapeBoundingBox.width;
+      } else if (this.currentTool === "ellipse") {
+        this.shape["a"] = this.shapeBoundingBox.width;
+        this.shape["b"] = this.shapeBoundingBox.height;
+      } else if (this.currentTool === "Triangle") {
+        this.shape["x"] = this.savedTrianglePoints[0].x;
+        this.shape["y"] = this.savedTrianglePoints[0].y;
+        for (let i = 2; i <= 3; i++) {
+          let conc = "x" + i;
+          this.shape[conc] = this.savedTrianglePoints[i - 1].x;
+          this.shape[conc] = this.savedTrianglePoints[i - 1].y;
+        }
+        this.sendNewShape();
+      }
     },
     SaveImage: function() {
       // Get a reference to the link element
@@ -393,6 +474,13 @@ export default {
       imageFile.setAttribute("download", "image.png");
       // Reference the image in canvas for download
       imageFile.setAttribute("href", this.canvas.toDataURL());
+    },
+    strockeORfill() {
+      if (this.drawtype == "fill") {
+        this.ctx.fill();
+      } else {
+        this.ctx.stroke();
+      }
     },
     changedrawtype(type) {
       document.getElementById("stroke").className = "";
@@ -412,133 +500,119 @@ export default {
       this.line_Width = this.lineWidthInput.value;
     },
     drawShape: function(s) {
-      this.ctx.fillStyle = s["color"];
-      this.ctx.strokeStyle = s["color"];
-      this.ctx.lineWidth = s["lineWidth"];
+      this.ctx.fillStyle=s['color'];
+      this.ctx.strokeStyle=s['color'];
+      this.ctx.lineWidth=s['lineWidth'];
       switch (s["type"]) {
-        case "Line":
+        case "line":
           this.drawLine(s);
           break;
-        case "Rectangle":
+        case "rectangle":
           this.drawRectangle(s);
           break;
-        case "Square":
+        case "square":
           this.drawSquare(s);
           break;
-        case "Circle":
+        case "circle":
           this.drawCircle(s);
           break;
-        case "Ellipse":
+        case "ellipse":
           this.drawEllipse(s);
           break;
         case "Triangle":
           this.drawTriangle(s);
           break;
       }
+
     },
-    drawLine: function(s) {
+    drawLine:function(s){
+        this.ctx.beginPath();
+        this.ctx.moveTo(s['x'], s['y']);
+        this.ctx.lineTo(s['x2'], s['y2']);
+        this.ctx.stroke();
+        this.ctx.closePath();
+    },
+    drawRectangle:function(s){
+        if (s['filled']) {
+          this.ctx.fillRect(
+            s['x'],
+            s['y'],
+            s['width'],
+            s['length']
+          );
+        } else {
+          this.ctx.strokeRect(
+            s['x'],
+            s['y'],
+            s['width'],
+            s['length']
+          );
+        }
+    },
+    drawSquare:function(s){
+        if (s['filled']) {
+          this.ctx.fillRect(
+           s['x'],
+            s['y'],
+            s['width'],
+            s['width']
+          );
+        } else {
+          this.ctx.strokeRect(
+            s['x'],
+            s['y'],
+            s['width'],
+            s['width']
+          );
+        }
+    },
+    drawCircle:function(s){
+        this.ctx.beginPath();
+        this.ctx.arc(
+          s['x'],
+          s['y'],
+          s['radius'],
+          0,
+          Math.PI * 2
+        );
+        s['filled']?this.ctx.fill():this.ctx.stroke();
+        this.ctx.closePath();
+    },
+    drawEllipse:function(s){
+        this.ctx.beginPath();
+        this.ctx.ellipse(
+          s['x'],
+          s['y'],
+          s['a'],
+          s['b'],
+          0,
+          0,
+          Math.PI * 2
+        );
+        s['filled']?this.ctx.fill():this.ctx.stroke();
+        this.closePath();
+    },
+    drawTriangle:function(s){
       this.ctx.beginPath();
-      this.ctx.moveTo(s["x"], s["y"]);
-      this.ctx.lineTo(s["x2"], s["y2"]);
-      this.ctx.stroke();
+      this.ctx.moveTo(s['x'],s['y']);
+      this.ctx.lineTo(s['x2'],s['y2']);
+      this.ctx.lineTo(s['x3'],s['y3']);
       this.ctx.closePath();
+      s['filled']?this.ctx.fill():this.ctx.stroke();
     },
-    drawRectangle: function(s) {
-      if (s["filled"]) {
-        this.ctx.fillRect(s["x"], s["y"], s["width"], s["length"]);
-      } else {
-        this.ctx.strokeRect(s["x"], s["y"], s["width"], s["length"]);
-      }
+    sendNewShape: function() {
+      axios.post("http://localhost:8081" + "/add", this.shape);
     },
-    drawSquare: function(s) {
-      if (s["filled"]) {
-        this.ctx.fillRect(s["x"], s["y"], s["width"], s["width"]);
-      } else {
-        this.ctx.strokeRect(s["x"], s["y"], s["width"], s["width"]);
-      }
-    },
-    drawCircle: function(s) {
-      this.ctx.beginPath();
-      this.ctx.arc(s["x"], s["y"], s["radius"], 0, Math.PI * 2);
-      s["filled"] ? this.ctx.fill() : this.ctx.stroke();
-      this.ctx.closePath();
-    },
-    drawEllipse: function(s) {
-      this.ctx.beginPath();
-      this.ctx.ellipse(s["x"], s["y"], s["a"], s["b"], 0, 0, Math.PI * 2);
-      s["filled"] ? this.ctx.fill() : this.ctx.stroke();
-      this.ctx.closePath();
-    },
-    drawTriangle: function(s) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(s["x"], s["y"]);
-      this.ctx.lineTo(s["x2"], s["y2"]);
-      this.ctx.lineTo(s["x3"], s["y3"]);
-      this.ctx.closePath();
-      s["filled"] ? this.ctx.fill() : this.ctx.stroke();
-    },
-    drawShapes:function(shapes){
+    getShapesFromServer: function() {
+      let shapes = axios.get("http://localhost:8081" + "/shapes");
+      console.log(shapes);
       this.ctx.save();
-      for (let s=0;s<shapes.length;s++) {
-        if(shapes[s]!=null)
-            this.drawShape(shapes[s]);
+      for (let s in shapes) {
+        this.drawShape(s);
       }
       this.ctx.restore();
     },
-    sendNewShape: async function() {
-      await AXIOS.post("add", this.shape);
-    },
-    drawShapesFromServer: async function() {
-       await AXIOS.get("/shapes").then(response=>{
-           this.shapes=response.data;
-       }).catch(error=>{
-           console.log(error);
-       });
-      this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-    //   this.drawShape(this.shape);
-      this.drawShapes(this.shapes);
-    },
-    reset:function(){
-        AXIOS.get("/reset");
-        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-    },
-    downloadXML() {
-      const FileDownload = require("js-file-download");
-      AXIOS.get("/downloadXML").then(response => {
-        FileDownload(response.data, "saved.xml");
-      });
-    },
-    downloadJSON() {
-      const FileDownload = require("js-file-download");
-      AXIOS.get("/downloadJSON").then(response => {
-        FileDownload(JSON.stringify(response.data), "saved.json");
-      });
-    },
-    submitFile(){
-      let formData = new FormData();
-      formData.append('file', this.file);
-      AXIOS.post('/upload',
-          formData,
-          {
-          headers: {
-              'Content-Type': 'multipart/form-data'
-          }
-          }
-      ).then(function(){
-        console.log('SUCCESS!!');
-      })
-      .catch(function(){
-        console.log('FAILURE!!');
-      });
-      this.isUploadShowing = false;
-    },
-    handleFileUpload(){
-      this.file = this.$refs.file.files[0];
-    },
-    showUpload(){
-      this.isUploadShowing = true;
-    }
-  }
+  },
 };
 </script>
 //Not much but honest work

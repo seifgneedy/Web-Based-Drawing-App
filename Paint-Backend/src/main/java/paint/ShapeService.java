@@ -34,5 +34,8 @@ public class ShapeService {
 		shapes.add(i, s);
 		return shapes;
 	}
+	public void clearShapes(){
+		shapes=new LinkedList<>();
+	}
 
 }

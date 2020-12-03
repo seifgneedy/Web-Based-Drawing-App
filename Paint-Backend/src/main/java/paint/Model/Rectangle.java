@@ -8,18 +8,18 @@ public class Rectangle implements Shape {
 	double x;
 	double y;
 	double width;
-	double lenght;
+	double length;
 	
 	public Rectangle() { }
 	
-	public Rectangle (String color, boolean filled,double lineWidth, double x, double y,double width, double lenght) {
+	public Rectangle (String color, boolean filled,double lineWidth, double x, double y,double width, double length) {
 		this.color=color;
 		this.filled=filled;
 		this.lineWidth=lineWidth;
 		this.x=x;
 		this.y=y;
 		this.width=width;
-		this.lenght=lenght;
+		this.length=length;
 	}
 	
 	public String getColor() {
@@ -61,11 +61,11 @@ public class Rectangle implements Shape {
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	public double getLenght() {
-		return lenght;
+	public double getlength() {
+		return length;
 	}
-	public void setLenght(double lenght) {
-		this.lenght = lenght;
+	public void setlength(double length) {
+		this.length = length;
 	}
 	public String getType() {
 		return type;
