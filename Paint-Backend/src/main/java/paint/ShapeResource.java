@@ -39,7 +39,6 @@ public class ShapeResource {
 	@PostMapping("/add")
 	public void addShape(@RequestBody String shapeData) {
 		Shape s = fac.makeShape(shapeData);
-		System.out.println(s==null);
 		service.addShape(s);
 	}
 	
