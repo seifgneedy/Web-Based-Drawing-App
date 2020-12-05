@@ -25,7 +25,11 @@ public class ShapeService {
 	}
 	public LinkedList<Shape> addShape (Shape s) {
 		shapes.add(s);
-		undo.push(shapes);
+		LinkedList<Shape> current = new LinkedList<Shape>();
+		for(int i=0;i<shapes.size();i++) {
+			current.add(shapes.get(i));
+		}
+		undo.push(current);
 		redo.clear();
 		return shapes;
 
@@ -33,7 +37,11 @@ public class ShapeService {
 	
 	public LinkedList<Shape> removeShape (int i) {
 		shapes.remove(i);
-		undo.push(shapes);
+		LinkedList<Shape> current = new LinkedList<Shape>();
+		for(int j=0;j<shapes.size();j++) {
+			current.add(shapes.get(j));
+		}	
+		undo.push(current);
 		redo.clear();
 		return shapes;
 
@@ -42,7 +50,11 @@ public class ShapeService {
 	public LinkedList<Shape> updateShape(Shape s, int i) {
 		shapes.remove(i);
 		shapes.add(i, s);
-		undo.push(shapes);
+		LinkedList<Shape> current = new LinkedList<Shape>();
+		for(int j=0;j<shapes.size();j++) {
+			current.add(shapes.get(j));
+		}	
+		undo.push(current);
 		redo.clear();
 		return shapes;
 	}
