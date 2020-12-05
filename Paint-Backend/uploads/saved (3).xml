@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="java.util.LinkedList">
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>black</string>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>132.11920529801324</double>
+    </void>
+    <void property="x">
+     <double>280.6291390728477</double>
+    </void>
+    <void property="y">
+     <double>169.96047430830038</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>black</string>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>152.98013245033115</double>
+    </void>
+    <void property="x">
+     <double>623.3443708609271</double>
+    </void>
+    <void property="y">
+     <double>331.0276679841897</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>#0fb9d7</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>217.5496688741722</double>
+    </void>
+    <void property="x">
+     <double>623.3443708609271</double>
+    </void>
+    <void property="y">
+     <double>331.0276679841897</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>#0fb9d7</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>66.55629139072852</double>
+    </void>
+    <void property="x">
+     <double>392.88079470198676</double>
+    </void>
+    <void property="y">
+     <double>92.88537549407114</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>#0fb9d7</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>93.3774834437086</double>
+    </void>
+    <void property="x">
+     <double>231.95364238410596</double>
+    </void>
+    <void property="y">
+     <double>189.72332015810275</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>#0fb9d7</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>13.907284768211923</double>
+    </void>
+    <void property="x">
+     <double>374.00662251655626</double>
+    </void>
+    <void property="y">
+     <double>317.19367588932806</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Circle">
+    <void property="color">
+     <string>#0fb9d7</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="radius">
+     <double>82.45033112582783</double>
+    </void>
+    <void property="x">
+     <double>286.58940397350995</double>
+    </void>
+    <void property="y">
+     <double>380.4347826086956</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>49.66887417218538</double>
+    </void>
+    <void property="x">
+     <double>599.5033112582781</double>
+    </void>
+    <void property="y">
+     <double>184.78260869565216</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>7.94701986754967</double>
+    </void>
+    <void property="x">
+     <double>650.1655629139073</double>
+    </void>
+    <void property="y">
+     <double>293.4782608695652</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>32.781456953642305</double>
+    </void>
+    <void property="x">
+     <double>568.7086092715232</double>
+    </void>
+    <void property="y">
+     <double>297.4308300395257</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>20.860927152317913</double>
+    </void>
+    <void property="x">
+     <double>478.31125827814566</double>
+    </void>
+    <void property="y">
+     <double>241.1067193675889</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>24.83443708609272</double>
+    </void>
+    <void property="x">
+     <double>195.19867549668874</double>
+    </void>
+    <void property="y">
+     <double>183.79446640316203</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>38.74172185430467</double>
+    </void>
+    <void property="x">
+     <double>385.92715231788077</double>
+    </void>
+    <void property="y">
+     <double>74.11067193675889</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>8.940397350993408</double>
+    </void>
+    <void property="x">
+     <double>381.95364238410593</double>
+    </void>
+    <void property="y">
+     <double>141.30434782608694</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>17.88079470198676</double>
+    </void>
+    <void property="x">
+     <double>210.09933774834437</double>
+    </void>
+    <void property="y">
+     <double>167.98418972332016</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>32.78145695364242</double>
+    </void>
+    <void property="x">
+     <double>259.7682119205298</double>
+    </void>
+    <void property="y">
+     <double>342.8853754940711</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>7.94701986754967</double>
+    </void>
+    <void property="x">
+     <double>333.27814569536423</double>
+    </void>
+    <void property="y">
+     <double>385.37549407114625</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>33.7748344370861</double>
+    </void>
+    <void property="x">
+     <double>270.6953642384106</double>
+    </void>
+    <void property="y">
+     <double>416.0079051383399</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>0.9933774834437088</double>
+    </void>
+    <void property="x">
+     <double>243.87417218543047</double>
+    </void>
+    <void property="y">
+     <double>404.1501976284585</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>0.9933774834437088</double>
+    </void>
+    <void property="x">
+     <double>232.94701986754967</double>
+    </void>
+    <void property="y">
+     <double>355.7312252964427</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="paint.Model.Square">
+    <void property="color">
+     <string>#000000</string>
+    </void>
+    <void property="filled">
+     <boolean>true</boolean>
+    </void>
+    <void property="lineWidth">
+     <double>4.0</double>
+    </void>
+    <void property="width">
+     <double>9.933774834437088</double>
+    </void>
+    <void property="x">
+     <double>366.0596026490066</double>
+    </void>
+    <void property="y">
+     <double>312.25296442687744</double>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

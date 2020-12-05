@@ -52,7 +52,8 @@ public class ShapeService {
 		for(int j=0;j<shapes.size();j++) {
 			current.add(shapes.get(j));
 		}	
-		undo.push(current);
+		if(!shapes.isEmpty())
+			undo.push(current);
 		redo.clear();
 		shapes.remove(i);
 		shapes.add(i, s);

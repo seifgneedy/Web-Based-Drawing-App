@@ -378,13 +378,13 @@ export default {
         this.UpdateRubberbandOnMove();
       }
     },
-    ReactToMouseUp(e) {
+   async ReactToMouseUp(e) {
       this.canvas.style.cursor = "default";
       this.loc = this.GetMousePosition(e.clientX, e.clientY);
       if (this.mousedown.x != this.loc.x || this.mousedown.y != this.loc.y) {
         //this.RedrawCanvasImage();
         this.UpdateRubberbandOnMove();
-        this.sendNewShape();
+       await this.sendNewShape();
         this.drawShapesFromServer();
       }
       this.dragging = false;
@@ -542,19 +542,17 @@ export default {
     },Undo(){
         AXIOS.get("/undo").then(response=>{
            this.shapes=response.data;
-           
+           this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+            this.drawShapes(this.shapes);
        }).catch(error=>{
            console.log(error);
        });
-       this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-    //   this.drawShape(this.shape);
-      this.drawShapes(this.shapes);
     },
     Redo(){
         AXIOS.get("/redo").then(response=>{
            this.shapes=response.data;
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-           this.drawShapes(this.shapes);
+            this.drawShapes(this.shapes);
        }).catch(error=>{
            console.log(error);
        });
