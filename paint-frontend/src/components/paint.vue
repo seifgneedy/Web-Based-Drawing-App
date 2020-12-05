@@ -8,7 +8,7 @@
       <a href="#" id="open" @click="showUpload"
         ><img src="../assets/open.png"
       /></a>
-      <a href="#" id="Line" @click="ChangeTool('Line')"
+      <a href="#" id="Line" @click="ChangeTool('Line')" class="selected"
         ><img src="../assets/line.png"
       /></a>
       <a href="#" id="Rectangle" @click="ChangeTool('Rectangle')"
@@ -149,7 +149,7 @@ export default {
       line_Width: 4,
       TriangleSides: 3,
       drawtype: "stroke",
-      currentTool: "line",
+      currentTool: "Line",
       canvasWidth: 900,
       canvasHeight: 500,
       canvasSizeData: "",
