@@ -24,56 +24,58 @@ public class ShapeService {
 		redo.clear();
 	}
 	public LinkedList<Shape> addShape (Shape s) {
-		shapes.add(s);
 		LinkedList<Shape> current = new LinkedList<Shape>();
 		for(int i=0;i<shapes.size();i++) {
 			current.add(shapes.get(i));
 		}
 		undo.push(current);
 		redo.clear();
+		shapes.add(s);
 		return shapes;
 
 	}
 	
 	public LinkedList<Shape> removeShape (int i) {
-		shapes.remove(i);
 		LinkedList<Shape> current = new LinkedList<Shape>();
 		for(int j=0;j<shapes.size();j++) {
 			current.add(shapes.get(j));
 		}	
 		undo.push(current);
 		redo.clear();
+		shapes.remove(i);
 		return shapes;
 
 	}
 	
 	public LinkedList<Shape> updateShape(Shape s, int i) {
-		shapes.remove(i);
-		shapes.add(i, s);
 		LinkedList<Shape> current = new LinkedList<Shape>();
 		for(int j=0;j<shapes.size();j++) {
 			current.add(shapes.get(j));
 		}	
 		undo.push(current);
 		redo.clear();
+		shapes.remove(i);
+		shapes.add(i, s);
 		return shapes;
 	}
 	
 	public LinkedList<Shape> undo (){
-		if(undo.isEmpty()) return null;
-		shapes = undo.pop();
+		if(undo.isEmpty()) return shapes;
 		redo.push(shapes);
+		shapes = undo.pop();
 		return shapes;
 	}
 	
 	public LinkedList<Shape> redo (){
-		if(redo.isEmpty()) return null;
-		shapes = redo.pop();
+		if(redo.isEmpty()) return shapes;
 		undo.push(shapes);
+		shapes = redo.pop();
 		return shapes;
 	}
 	public void clearShapes(){
 		shapes=new LinkedList<>();
+		undo.clear();
+		redo.clear();
 	}
 
 }
