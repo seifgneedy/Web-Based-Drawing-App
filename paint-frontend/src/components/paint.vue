@@ -34,6 +34,7 @@
     <div class="toolbar">
       <a id="stroke" @click="changedrawtype('stroke')">stroke</a>
       <a id="fill" @click="changedrawtype('fill')">fill</a>
+     
       <div class="col_3">
         <form>
           <span style="color:white;">Pick Color </span>
@@ -43,6 +44,8 @@
       <div class="col_3" id="line">
         <span style="color:white;"> || Line width </span>
         <select id="selectLineWidth"></select>
+         <div class="col_3"><input type="button" value="Undo" style="background-color:yellow; " @click="Undo"></div>
+      <div class="col_3"><input type="button"  value="Redo" style="background-color:red;"  @click="Redo"></div>
       </div>
       <br /><br />
     </div>
@@ -536,6 +539,25 @@ export default {
     },
     showUpload(){
       this.isUploadShowing = true;
+    },Undo(){
+        AXIOS.get("/undo").then(response=>{
+           this.shapes=response.data;
+           
+       }).catch(error=>{
+           console.log(error);
+       });
+       this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+    //   this.drawShape(this.shape);
+      this.drawShapes(this.shapes);
+    },
+    Redo(){
+        AXIOS.get("/redo").then(response=>{
+           this.shapes=response.data;
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+           this.drawShapes(this.shapes);
+       }).catch(error=>{
+           console.log(error);
+       });
     }
   }
 };
